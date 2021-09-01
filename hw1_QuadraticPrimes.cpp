@@ -1,7 +1,7 @@
 /*
 *     *** Quadratic Primes ***
 	  ***  Hamza Tanveer ****
-	  ***   HW 2 ***
+	  ***   HW 1 ***
 
  */
 
@@ -28,16 +28,18 @@ int main ()
 	do {
 
 		std::cout << "\nEnter a number to check whether it's prime or not: ";
-		//int n{ 0 };
 		std::cin >> n;
 
 
-
-		//int result = isPrime(n);
+		
 		if (isPrime(n) == 0)
-			std::cout << n << " is not prime number !!!!!!!!!!!!!! \n\n";
+		{
+				std::cout << n << " is not prime number !!!!!!!!!!!!!! \n\n";
+		}
 		else
+		{
 			std::cout << n << " is a prime number \n\n";
+		}
 		std::cout << "\n *** To exit Prime Number Checker, input the number ZERO ' 0 ' ****\n**********************************\n";
 	} while (n > 0);
 
@@ -47,6 +49,11 @@ int main ()
 
 
 }
+
+
+
+
+
 
 void printQuadratic1()
 {
@@ -92,13 +99,14 @@ void outputABn()
 		for (int b = -1000; b <= 1000; b++)
 		{
 			int n = 0;
-			while (isPrime((n * n) + (a * n) + b))
+			while (isPrime((n * n) + (a * n) + b))	// Calculated the number and checks if it's prime
 			{
-				n++;
+				n++;								// if prime then increases the count of n
 		
 			}
 			if (n > count_n)
 			{
+				// stores the a,b, n values before the loop ends
 				count_a = a;
 				count_b = b;
 				count_n = n;
