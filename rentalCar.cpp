@@ -35,7 +35,9 @@ public:
 	void delCarbyID(std::vector<rentalCar>& cars);	// delete an existing car by id
 
 	void ReadandStore(std::vector<rentalCar>& classobj); // reads the data from cars.dat file and stores it in vector
-	void listAllCars(std::vector<rentalCar>& cars);
+	void listAllCars(std::vector<rentalCar>& cars);		// iterated through the vector holding car database and prints to screen
+
+	void appendingToFile(std::vector<rentalCar>& cars)const;	// appends the new cars added to the end of cars.data file
 
 
 
@@ -66,7 +68,9 @@ int main()
 	int selection(0);
 	do
 	{
-		std::cout << "\nwelcome to Hamza Car Rental\nPlease select from the following ( 1 - 7 ) option:"
+	std::cout << "============================================================================\n"
+			<< "============================================================================"
+			<< "\nwelcome to Hamza Car Rental\nPlease select from the following ( 1 - 7 ) option:"
 			<< "\n1. Search by id"
 			<< "\n2. Search by make"
 			<< "\n3. Search by model"
@@ -119,9 +123,35 @@ int main()
 	
 
 
-
+	cars.at(0).appendingToFile(cars);
 
 	return 0;
+}
+
+
+void rentalCar::appendingToFile(std::vector<rentalCar>& cars) const
+{
+	std::ofstream outFS; // Output file stream
+
+   // Open file
+	outFS.open("cars.data");
+
+	if (!outFS.is_open()) {
+		std::cout << "Could not open file myoutfile.txt." << std::endl;
+		
+	}
+
+	// Write to file using for looop
+	for (unsigned int i = 0; i < cars.size(); ++i)
+	{
+		outFS << cars.at(i).getid() << std::endl;
+		outFS << cars.at(i).getMake() << std::endl;
+		outFS << cars.at(i).getModel() << std::endl;
+	}
+
+	// Done with file, so close
+	outFS.close();
+
 }
 
 rentalCar::rentalCar()
@@ -169,6 +199,7 @@ void rentalCar::ReadandStore(std::vector<rentalCar>& classobj)
 	inFS.close(); // Done with file, so close it
 }
 
+// prints the entire car database for the user
 void rentalCar::listAllCars(std::vector<rentalCar>& cars)
 {
 	std::cout << "\n\n" << std::setw(6) << std::left << "ID" << "|" << std::setw(10) << std::left << "  Make" << "|" << std::setw(10) << std::left << "  Model" << std::endl;
@@ -230,7 +261,7 @@ void rentalCar::searchMake(std::vector<rentalCar>& cars) const
 		std::cout << "you can choose from the following ' Make ' :\n";
 		for (unsigned int i(0); i < cars.size(); ++i)									// iterated through the database to pull out all the  different makes available
 			std::cout << std::setw(5) << std::left << cars.at(i).getMake() << " | ";
-		std::cout << "\nSearch by Make (first letter is capital for all makes): ";
+		std::cout << "\nSearch by Make (all lowercase): ";
 		std::cin >> searchMake;
 
 		std::cout << std::setw(6) << std::left << "ID" << "|" << std::setw(10) << std::left << "  Make" << "|" << std::setw(10) << std::left << "  Model" << std::endl;
@@ -264,7 +295,7 @@ void rentalCar::searchModle(std::vector<rentalCar>& cars) const
 		std::cout << "you can choose from the following ' MODEL ' :\n";
 		for (unsigned int i(0); i < cars.size(); ++i)									// iterated through the database to pull out all the  different MODEL available
 			std::cout << std::setw(5) << std::left << cars.at(i).getModel() << " | ";
-		std::cout << "\nSearch by MODEL (first letter is capital for all makes): ";
+		std::cout << "\nSearch by MODEL (all lowercase): ";
 		std::cin >> searchModel;
 
 		std::cout << std::setw(6) << std::left << "ID" << "|" << std::setw(10) << std::left << "  Make" << "|" << std::setw(10) << std::left << "  Model" << std::endl;
@@ -348,12 +379,8 @@ void rentalCar::delCarbyID(std::vector<rentalCar>& cars)
 
 
 
-//void rentalCar::apptoCarsData(fstream& out)
-//{
-//	std::cout << id << std::endl;
-//	std::cout << make << std::endl;
-//	std::cout << model << std::endl;
-//}
+
+
 
 
 
