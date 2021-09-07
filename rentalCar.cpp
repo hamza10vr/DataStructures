@@ -232,7 +232,7 @@ void rentalCar::searchId(std::vector<rentalCar>& cars) const
 			if (cars.at(i).getid() == searchID)		//if id found, increases cout and prints out the results
 			{
 				count++;
-				std::cout << "\n\nyou search has resulted in ' " << count << " ' car from our data base" << std::endl;
+				std::cout << "\nyou search has resulted in ' " << count << " ' car from our data base" << std::endl;
 				std::cout << std::setw(6) << std::left << "ID" << "|" << std::setw(10) << std::left << "  Make" << "|" << std::setw(10) << std::left << "  Model" << std::endl;
 				std::cout << std::setfill('-') << std::setw(26) << "" << std::endl;
 				std::cout << std::setfill(' ');
