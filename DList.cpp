@@ -25,21 +25,17 @@ public:
     DList() : head{ nullptr }, tail{ nullptr } {std::cout << "default constructor called\n"; }
 
     void traverse();
+    void reverse_transverse();
     void add_at_head(int num);
     void add_at_tail(int num);
-    void reverse_transverse();
-    bool dlsearch(int target);
+    DLNodePtr search(int target);
+    void remove(const DLNodePtr& curNode);
+
 
 
 private:
     DLNode* head;
     DLNode* tail;
-
-
-
-
-
-
 };
 
 
@@ -66,7 +62,9 @@ int main()
        dlist.add_at_tail(i); 
 
     // TODO: uncomment following code snippet to test search function
-  //   auto pTemp = dlist.search(11); 
+     auto pTemp = dlist.search(12); 
+     std::cout << pTemp << " returning address of searched node\n";
+     std::cout << pTemp->data << " ------------\n";
 
     // TODO: call dlist's delete function to delete pTemp from the list. 
 
@@ -74,12 +72,29 @@ int main()
      dlist.traverse();
      dlist.reverse_transverse();
 
-     dlist.dlsearch(15);
-     dlist.dlsearch(21);
+
+
+     dlist.search(15);
+     dlist.search(21);
+
+     dlist.remove(pTemp);
+     dlist.traverse();
+
+     auto aTemp = dlist.search(1);
+     dlist.remove(aTemp);
+     dlist.traverse();
+
+     auto bTemp = dlist.search(15);
+     dlist.remove(bTemp);
+     dlist.traverse();
+
+     auto cTemp = dlist.search(20);
+     dlist.remove(cTemp);
+     dlist.traverse();
   
-     //std::cout << std::boolalpha << dlist.dlsearch(15) << std::endl;
-     //std::cout << std::boolalpha << dlist.dlsearch(7) << std::endl;
-     //std::cout << std::boolalpha << dlist.dlsearch(4) <<std::endl;
+     //std::cout << std::boolalpha << dlist.search(15) << std::endl;
+     //std::cout << std::boolalpha << dlist.search(7) << std::endl;
+     //std::cout << std::boolalpha << dlist.search(4) <<std::endl;
 
     return 0;
 }
@@ -155,18 +170,48 @@ void DList::reverse_transverse()
     std::cout << "]\n";
 }
 
-bool DList::dlsearch(int target)
+DLNodePtr DList::search(int target)
 {
     DLNodePtr temp = head;
     while (temp != nullptr)  /// same as while (temp)
     {
         if (temp->data == target)
         {
-            std::cout << "number " << target << " is not in dList\n";
-            return true;
+            std::cout << "number " << target << " is  in dList\n";
+            return temp;
         }
         temp = temp->next;
     }
-    std::cout << "number " << target << " is in dList\n";
-    return false;
+    std::cout << "number " << target << " is not in dList\n";
+    return nullptr;
 }
+
+void DList::remove(const DLNodePtr& curNode)
+{
+    if (curNode == nullptr)
+        return;
+    DLNodePtr sucNode = curNode->next;
+    DLNodePtr preNode = curNode->previous;
+
+    if (sucNode != nullptr)
+    {
+        sucNode->previous = preNode;
+    }
+
+    if (preNode != nullptr)
+    {
+        preNode->next = sucNode;
+    }
+
+    if (curNode == this->head)  //Removed head
+    {
+        this->head = sucNode;
+    }
+
+    if (curNode == this->tail)  //Removed tail
+    {
+        this->tail = preNode;
+    }
+
+    return;
+};
