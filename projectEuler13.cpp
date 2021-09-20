@@ -105,7 +105,7 @@ void addition(std::list<int>& list_1, std::string new_line)
         else 
         {
             digit = 0;
-            //temp = *it;
+            *it = *it + carry;
         }
 
         //std::cout << std::endl;
@@ -125,16 +125,16 @@ void addition(std::list<int>& list_1, std::string new_line)
         else    // if the sum of two digits is less than 10, take 0 as the carry
         {
             carry = 0;
-            *it = *it;
+            //*it = *it;
             std::cout << "  2rd if ";
         }
-        if (digit == 0)
-        {
-            std::cout << "  before 2nd if " << *it <<"  2rd if ";
-            *it = *it + carry;
-            carry = 0;
-            std::cout << "  3rd if ";
-        }
+        //if (digit == 0)
+        //{
+        //    std::cout << "  before 3nd if " << *it <<"  3rd if ";
+        //    //*it = *it + carry;
+        //    carry = 0;
+        //    std::cout << "  3rd if ";
+        //}
 
 
         //if (*it < 10)
