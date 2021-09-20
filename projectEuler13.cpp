@@ -52,12 +52,15 @@ list<int> sumOfTwoList(list<int> list1, list<int> list2)
     return result;
 }
 
-// function to print out the answer
-void printAnswer(list<int> list)
+
+void print(list<int> &list)         // function to print out the answer
 {
-    for (auto digit : list)
-        std::cout << digit;
+    std::cout << "The sum is: ";
+    for (auto number : list)
+        std::cout << number;
     std::cout << endl;
+    int sizee = list.size();
+    std::cout << " size is " << sizee;
 }
 
 void reverseStr(string& str)
@@ -78,13 +81,13 @@ void addition(std::list<int>& list_1, std::string new_line)
     int temp;
     reverseStr(new_line);
 
-    std::cout << "\reading original list inside function ";
+    std::cout << "\reading original : ";
     for (auto i : list_1)
-        std::cout << i << " ";
+        std::cout << i ;
 
     std::cout << "\nreading new line: ";
     for (auto i : new_line)
-        std::cout << i << " ";
+        std::cout << i;
 
 
     unsigned int i = 0;
@@ -92,17 +95,22 @@ void addition(std::list<int>& list_1, std::string new_line)
     //{
     for (it = list_1.begin(); it != list_1.end(); ++it)
     {
+        std::cout << std::endl << i << ". " << *it;
         // std::cout << ' ' << *it;
-        if (i < new_line.length()) {
+        if (i < new_line.length()) 
+        {
             digit = new_line.at(i) - '0';
-            *it = (new_line.at(i) - '0') + *it + carry;
+            *it = digit + *it + carry;
         }
-        else {
+        else 
+        {
             digit = 0;
-            temp = *it;
+            //temp = *it;
         }
-        std::cout << "\nnew digit = " << digit << std::endl;
-        std::cout << digit << " + " << *it;
+
+        //std::cout << std::endl;
+        //std::cout << "\nnew digit = " << digit << std::endl;
+        std::cout <<  " + "  << digit ;
 
 
 
@@ -112,17 +120,22 @@ void addition(std::list<int>& list_1, std::string new_line)
             carry = 1;                  // +1
             //temp = temp % 10;           // 4
             *it = *it % 10;                 //*it = 4
-        }
-        else if (digit == 0)
-        {
-            *it += carry;
-            carry = 0;
+            std::cout << "  1st if ";
         }
         else    // if the sum of two digits is less than 10, take 0 as the carry
         {
             carry = 0;
-            //*it = *it;
+            *it = *it;
+            std::cout << "  2rd if ";
         }
+        if (digit == 0)
+        {
+            std::cout << "  before 2nd if " << *it <<"  2rd if ";
+            *it = *it + carry;
+            carry = 0;
+            std::cout << "  3rd if ";
+        }
+
 
         //if (*it < 10)
         //{
@@ -130,7 +143,7 @@ void addition(std::list<int>& list_1, std::string new_line)
         //    
         //}
 
-        std::cout << " = " << carry << *it << std::endl;
+        std::cout << " = " << *it << " with carry = " << carry;
 
         i++;
 
@@ -191,20 +204,21 @@ int main()
     std::cout << "\n===== closing file =====" << std::endl << std::endl;
     inFS.close(); // Done with file, so close it
 
-    std::cout << "\nForward  list = ";
+  /*  std::cout << "\nForward  list = ";
     for (auto i : list)
-        std::cout << i;
+        std::cout << i;*/
 
 
     list.reverse();
 
-    std::cout << "\nReversed list = ";
-    for (auto i : list)
-        std::cout << i;
+    //std::cout << "\nReversed list = ";
+    //for (auto i : list)
+    //    std::cout << i;
 
 
-    //// print out the sum
-    //std::cout << "The sum is: ";
-    //printAnswer(intermidiateSum);
+    
+    print(list);    // print out the sum
+
+
     return 0;
 }
