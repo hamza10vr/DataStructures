@@ -60,6 +60,65 @@ void printAnswer(list<int> list)
     std::cout << endl;
 }
 
+void addition(std::list<int> &list_1, std::string new_line)
+{
+    std::list<int>::iterator it = list_1.begin();
+    int carry = 0;
+    int new_number, temp;
+
+    //std::cout << "\reading original list inside function ";
+    //for (auto i : list_1)
+    //    std::cout << i << " ";
+
+    //std::cout << "\nreading new line: ";
+    //for (auto i : new_line)
+    //    std::cout << i << " ";
+
+    for (auto i =0 ; i < new_line.size(); i++)
+    {
+        
+        //new_number = new_line.at(i)-'0';
+        //std::cout << "\nnew numbers = " << new_number;
+
+        //std::cout << std::endl << new_number << " + " << *it << " = ";
+       
+        temp= (new_line.at(i) - '0' ) + *it +carry;
+
+        if (temp >= 10)
+        {
+            carry = 1;
+            temp = temp % 10;
+            *it = temp;
+        }
+        
+        else    // if the sum of two digits is less than 10, take 0 as the carry
+        {
+            carry = 0;
+            //*it = new_line.at(i);
+            *it = temp;
+        }
+
+
+
+
+
+        //std::cout << carry << *it << std::endl;
+       // std::cout << std::endl << new_number << " + " << *it << " = " << carry << *it << std::endl;
+
+        it++;
+
+
+    }
+        
+    if (carry == 1)
+    {
+        list_1.push_back(carry);
+    }
+
+
+
+}
+
 int main() 
 {
     std::ifstream inFS;
@@ -75,44 +134,50 @@ int main()
 		return -1; // 1 indicates error
 	}
 
-    
-    list<int> intermidiateSum;  // linked list to hold the numbers sum
+    list<int> list;
     
     string line;                 // string for reading 50-digit long numbers as string 
-    while (inFS >> line)         // as long as nums.txt has line it will keep reading
+    inFS >> line;
+
+
+    for (auto i = 0; i < line.length(); ++i)
     {
-        // convert each char of string to int and push to linked list
-        list<int> currentNum;
-/*        for (int i = num.length() - 1; i >= 0; i--)
-        {
-            currentNum.push_back(num[i] - '0');
-        }   */     
-        
-        std::cout << line << std::endl;
-
-        for (auto i = 0; i < line.length(); ++i) 
-        {
-            currentNum.push_front(line.at(i) - '0');
-        }
-
-
-       // for (auto i : num.length())
-
-        for (auto i : currentNum)
-            std::cout << i << " " << std::endl;
-        // add the current number to the sum
-        //intermidiateSum = sumOfTwoList(intermidiateSum, currentNum);
+        list.push_front(line.at(i) - '0');
     }
 
-    std::cout << "\nclosing file xxxxxx" << std::endl << std::endl;
+    //std::cout << "\reading original list ";
+    //for (auto i : list)
+    //    std::cout << i << " " ;
+
+    //std::cout << std::endl;
+
+    int a = 1;
+    while (inFS >> line)         // as long as nums.txt has line it will keep reading
+    {
+        addition(list, line);
+        a++;
+        std::cout << a <<" | ";
+    }
+
+
+
+    std::cout << "\n===== closing file =====" << std::endl << std::endl;
     inFS.close(); // Done with file, so close it
 
+    std::cout << "\nForward  list = ";
+    for (auto i : list)
+        std::cout << i ;
 
-    // reverse the linked list
-    intermidiateSum.reverse();
+    
+    list.reverse();
 
-    // print out the sum
-    std::cout << "The sum is: ";
-    printAnswer(intermidiateSum);
+    std::cout << "\nReversed list = ";
+    for (auto i : list)
+        std::cout << i;
+
+
+    //// print out the sum
+    //std::cout << "The sum is: ";
+    //printAnswer(intermidiateSum);
     return 0;
 }
