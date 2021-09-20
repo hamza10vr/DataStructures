@@ -64,7 +64,8 @@ void addition(std::list<int> &list_1, std::string new_line)
 {
     std::list<int>::iterator it = list_1.begin();
     int carry = 0;
-    int new_number, temp;
+    int digit = -1;
+    int temp;
 
     std::cout << "\reading original list inside function ";
     for (auto i : list_1)
@@ -82,31 +83,34 @@ void addition(std::list<int> &list_1, std::string new_line)
     {
        // std::cout << ' ' << *it;
         if (i < new_line.length()) {
-            new_number = new_line.at(i) - '0';
-            temp = (new_line.at(i) - '0') + *it + carry;
+            digit = new_line.at(i) - '0';
+            *it = (new_line.at(i) - '0') + *it + carry;
         }
         else {
-            new_number = 0;
+            digit = 0;
             temp = *it;
         }
-            std::cout << "\nnew numbers = " << new_number << std::endl;
-            std::cout << new_number << " + " << *it;
+            std::cout << "\nnew digit = " << digit << std::endl;
+            std::cout << digit << " + " << *it;
         
 
         
 
-        if (temp >= 10)
+        if (*it >= 10)                 // 14
         {
-            carry = 1;
-            temp = temp % 10;
-            *it = temp;
+            carry = 1;                  // +1
+            //temp = temp % 10;           // 4
+            *it = *it % 10;                 //*it = 4
         }
-        
+        else if (digit ==0)
+        {
+            *it += carry;
+            carry = 0;
+        }
         else    // if the sum of two digits is less than 10, take 0 as the carry
         {
             carry = 0;
-            //*it = new_line.at(i);
-            *it = temp;
+            //*it = *it;
         }
 
         //if (*it < 10)
