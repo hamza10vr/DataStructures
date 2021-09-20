@@ -66,23 +66,34 @@ void addition(std::list<int> &list_1, std::string new_line)
     int carry = 0;
     int new_number, temp;
 
-    //std::cout << "\reading original list inside function ";
-    //for (auto i : list_1)
-    //    std::cout << i << " ";
+    std::cout << "\reading original list inside function ";
+    for (auto i : list_1)
+        std::cout << i << " ";
 
-    //std::cout << "\nreading new line: ";
-    //for (auto i : new_line)
-    //    std::cout << i << " ";
+    std::cout << "\nreading new line: ";
+    for (auto i : new_line)
+        std::cout << i << " ";
 
-    for (auto i =0 ; i < new_line.size(); i++)
+    
+    unsigned int i = 0;
+    //for (auto i =0 ; i < new_line.size(); i++)
+    //{
+    for (it = list_1.begin(); it != list_1.end(); ++it)
     {
+       // std::cout << ' ' << *it;
+        if (i < new_line.length()) {
+            new_number = new_line.at(i) - '0';
+            temp = (new_line.at(i) - '0') + *it + carry;
+        }
+        else {
+            new_number = 0;
+            temp = *it;
+        }
+            std::cout << "\nnew numbers = " << new_number << std::endl;
+            std::cout << new_number << " + " << *it;
         
-        //new_number = new_line.at(i)-'0';
-        //std::cout << "\nnew numbers = " << new_number;
 
-        //std::cout << std::endl << new_number << " + " << *it << " = ";
-       
-        temp= (new_line.at(i) - '0' ) + *it +carry;
+        
 
         if (temp >= 10)
         {
@@ -98,24 +109,25 @@ void addition(std::list<int> &list_1, std::string new_line)
             *it = temp;
         }
 
+        //if (*it < 10)
+        //{
+        //    *it += carry;
+        //    
+        //}
 
+        std::cout << " = " << carry << *it << std::endl;
 
-
-
-        //std::cout << carry << *it << std::endl;
-       // std::cout << std::endl << new_number << " + " << *it << " = " << carry << *it << std::endl;
-
-        it++;
+        i++;
 
 
     }
-        
+    
     if (carry == 1)
     {
         list_1.push_back(carry);
     }
 
-
+    
 
 }
 
@@ -156,7 +168,7 @@ int main()
     {
         addition(list, line);
         a++;
-        std::cout << a <<" | ";
+        std::cout <<"read numer for the "<<  a << " |  time ";
     }
 
 
