@@ -48,7 +48,7 @@ list<int> sumOfTwoList(list<int> list1, list<int> list2)
     if (carry == 1) {
         result.push_back(carry);
     }
-    
+
     return result;
 }
 
@@ -60,12 +60,23 @@ void printAnswer(list<int> list)
     std::cout << endl;
 }
 
-void addition(std::list<int> &list_1, std::string new_line)
+void reverseStr(string& str)
+{
+    int n = str.length();
+
+    // Swap character starting from two
+    // corners
+    for (int i = 0; i < n / 2; i++)
+        swap(str[i], str[n - i - 1]);
+}
+
+void addition(std::list<int>& list_1, std::string new_line)
 {
     std::list<int>::iterator it = list_1.begin();
     int carry = 0;
     int digit = -1;
     int temp;
+    reverseStr(new_line);
 
     std::cout << "\reading original list inside function ";
     for (auto i : list_1)
@@ -75,13 +86,13 @@ void addition(std::list<int> &list_1, std::string new_line)
     for (auto i : new_line)
         std::cout << i << " ";
 
-    
+
     unsigned int i = 0;
     //for (auto i =0 ; i < new_line.size(); i++)
     //{
     for (it = list_1.begin(); it != list_1.end(); ++it)
     {
-       // std::cout << ' ' << *it;
+        // std::cout << ' ' << *it;
         if (i < new_line.length()) {
             digit = new_line.at(i) - '0';
             *it = (new_line.at(i) - '0') + *it + carry;
@@ -90,11 +101,11 @@ void addition(std::list<int> &list_1, std::string new_line)
             digit = 0;
             temp = *it;
         }
-            std::cout << "\nnew digit = " << digit << std::endl;
-            std::cout << digit << " + " << *it;
-        
+        std::cout << "\nnew digit = " << digit << std::endl;
+        std::cout << digit << " + " << *it;
 
-        
+
+
 
         if (*it >= 10)                 // 14
         {
@@ -102,7 +113,7 @@ void addition(std::list<int> &list_1, std::string new_line)
             //temp = temp % 10;           // 4
             *it = *it % 10;                 //*it = 4
         }
-        else if (digit ==0)
+        else if (digit == 0)
         {
             *it += carry;
             carry = 0;
@@ -125,33 +136,33 @@ void addition(std::list<int> &list_1, std::string new_line)
 
 
     }
-    
+
     if (carry == 1)
     {
         list_1.push_back(carry);
     }
 
-    
+
 
 }
 
-int main() 
+int main()
 {
     std::ifstream inFS;
 
 
-	//trying to open file
-	std::cout << "opening nums.txt" << std::endl;
+    //trying to open file
+    std::cout << "opening nums.txt" << std::endl;
 
-	inFS.open("nums.txt");      // opening file
-	if (!inFS.is_open())        // for some reason file doesn't open through out an error and exit
+    inFS.open("nums.txt");      // opening file
+    if (!inFS.is_open())        // for some reason file doesn't open through out an error and exit
     {
-		std::cout << "Could not open nums.txt" << std::endl;
-		return -1; // 1 indicates error
-	}
+        std::cout << "Could not open nums.txt" << std::endl;
+        return -1; // 1 indicates error
+    }
 
     list<int> list;
-    
+
     string line;                 // string for reading 50-digit long numbers as string 
     inFS >> line;
 
@@ -172,7 +183,7 @@ int main()
     {
         addition(list, line);
         a++;
-        std::cout <<"read numer for the "<<  a << " |  time ";
+        std::cout << "read numer for the " << a << " |  time ";
     }
 
 
@@ -182,9 +193,9 @@ int main()
 
     std::cout << "\nForward  list = ";
     for (auto i : list)
-        std::cout << i ;
+        std::cout << i;
 
-    
+
     list.reverse();
 
     std::cout << "\nReversed list = ";
