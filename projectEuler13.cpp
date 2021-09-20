@@ -1,76 +1,27 @@
 #include<iostream>
 #include<fstream>
 #include<list>
-using namespace std;
-
-// function to add two numbers
-list<int> sumOfTwoList(list<int> list1, list<int> list2)
-{
-    list<int> result;
-    int carry = 0;
-    int temp;
-
-    while (!list1.empty() || !list2.empty()) {
-        // if list1 is empty, add the carry to the list2
-        if (list1.empty())
-        {
-            temp = list2.front() + carry;
-            list2.pop_front();
-        }
-        // if list2 is empty, add the carry to the list1
-        else if (list2.empty())
-        {
-            temp = list1.front() + carry;
-            list1.pop_front();
-        }
-        // if both list1 and list2 are not empty, add them
-        else
-        {
-            temp = list1.front() + list2.front() + carry;
-            list1.pop_front();
-            list2.pop_front();
-        }
-        // if the sum of two digits is greater than 10, take 1 as the carry
-        if (temp >= 10)
-        {
-            carry = 1;
-            temp = temp % 10;
-        }
-        // if the sum of two digits is less than 10, take 0 as the carry
-        else
-        {
-            carry = 0;
-        }
-        // add the sum of digit to the result list
-        result.push_back(temp);
-    }
-    // if the carry is not 0, add it to the result list
-    if (carry == 1) {
-        result.push_back(carry);
-    }
-
-    return result;
-}
 
 
-void print(list<int> &list)         // function to print out the answer
+
+void print(std::list<int> &list)         // function to print out the answer
 {
     std::cout << "The sum is: ";
     for (auto number : list)
         std::cout << number;
-    std::cout << endl;
+    std::cout << std::endl;
     int sizee = list.size();
     std::cout << " size is " << sizee;
 }
 
-void reverseStr(string& str)
+void reverseStr(std::string& str)
 {
     int n = str.length();
 
     // Swap character starting from two
     // corners
     for (int i = 0; i < n / 2; i++)
-        swap(str[i], str[n - i - 1]);
+        std::swap(str[i], str[n - i - 1]);
 }
 
 void addition(std::list<int>& list_1, std::string new_line)
@@ -78,16 +29,16 @@ void addition(std::list<int>& list_1, std::string new_line)
     std::list<int>::iterator it = list_1.begin();
     int carry = 0;
     int digit = -1;
-    int temp;
+    ////int temp;
     reverseStr(new_line);
 
-    std::cout << "\reading original : ";
-    for (auto i : list_1)
-        std::cout << i ;
+    //std::cout << "\reading original : ";
+    //for (auto i : list_1)
+    //    std::cout << i ;
 
-    std::cout << "\nreading new line: ";
-    for (auto i : new_line)
-        std::cout << i;
+    //std::cout << "\nreading new line: ";
+    //for (auto i : new_line)
+    //    std::cout << i;
 
 
     unsigned int i = 0;
@@ -95,7 +46,7 @@ void addition(std::list<int>& list_1, std::string new_line)
     //{
     for (it = list_1.begin(); it != list_1.end(); ++it)
     {
-        std::cout << std::endl << i << ". " << *it;
+        ////std::cout << std::endl << i << ". " << *it;
         // std::cout << ' ' << *it;
         if (i < new_line.length()) 
         {
@@ -110,7 +61,7 @@ void addition(std::list<int>& list_1, std::string new_line)
 
         //std::cout << std::endl;
         //std::cout << "\nnew digit = " << digit << std::endl;
-        std::cout <<  " + "  << digit ;
+        ////std::cout <<  " + "  << digit ;
 
 
 
@@ -120,13 +71,13 @@ void addition(std::list<int>& list_1, std::string new_line)
             carry = 1;                  // +1
             //temp = temp % 10;           // 4
             *it = *it % 10;                 //*it = 4
-            std::cout << "  1st if ";
+            ////std::cout << "  1st if ";
         }
         else    // if the sum of two digits is less than 10, take 0 as the carry
         {
             carry = 0;
             //*it = *it;
-            std::cout << "  2rd if ";
+            ////std::cout << "  2rd if ";
         }
         //if (digit == 0)
         //{
@@ -143,7 +94,7 @@ void addition(std::list<int>& list_1, std::string new_line)
         //    
         //}
 
-        std::cout << " = " << *it << " with carry = " << carry;
+        ////std::cout << " = " << *it << " with carry = " << carry;
 
         i++;
 
@@ -174,9 +125,9 @@ int main()
         return -1; // 1 indicates error
     }
 
-    list<int> list;
+    std::list<int> list;
 
-    string line;                 // string for reading 50-digit long numbers as string 
+    std::string line;                 // string for reading 50-digit long numbers as string 
     inFS >> line;
 
 
@@ -196,7 +147,7 @@ int main()
     {
         addition(list, line);
         a++;
-        std::cout << "read numer for the " << a << " |  time ";
+        //std::cout << "read numer for the " << a << " |  time ";
     }
 
 
