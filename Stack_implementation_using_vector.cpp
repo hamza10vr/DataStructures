@@ -41,14 +41,27 @@ int main()
 {
 	MyStack <int> ms;
 
-	for (auto i : { 1,2,3,4,5,6 })
-		ms.push(i);
+	//for (auto i : { 1,2,3,4,5,6 })
+	//	ms.push(i);
 
-	while (!ms.isEmpty()) 
-	{
+	//while (!ms.isEmpty()) 
+	//{
+	//	std::cout << ms.top() << " ";
+	//	ms.pop();
+	//}
+
+	// app 1 : convert decimal to binary
+
+	int num = 644;
+
+	while (num) {
+		ms.push(num % 2);
+		num /= 2;
+	}
+
+	while (!ms.isEmpty()) {
 		std::cout << ms.top() << " ";
 		ms.pop();
-
 	}
 
 
