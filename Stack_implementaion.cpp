@@ -80,17 +80,45 @@ bool parenthesesChecker(const std::string& str) {
 	return ms.size() == 0;
 }
 
+bool isBalanced(std::string s)
+{
+	std::stack<char> ms;
+
+	for (auto ch : s) {
+		if (ch == '(' || ch == '[' || ch == '{' || ch == '<')
+			ms.push(ch);
+		else if (ch == ')' && !ms.empty() && ms.top() == '(')
+			ms.pop();
+		else if (ch == ']' && !ms.empty() && ms.top() == '[')
+			ms.pop();
+		else if (ch == '}' && !ms.empty() && ms.top() == '{')
+			ms.pop();
+		else if (ch == '>' && !ms.empty() && ms.top() == '<')
+			ms.pop();
+		else
+			return false;
+	}
+
+	return ms.size() == 0;
+	//return ms.empty();    // return container status if.empty = true else false
+}
+
+
+
 // app 3: evaluate a postfix expression 
 int postFix(const std::string& exp) {
 	std::stack<int> st;
 
 	for (auto ch : exp) {
 		if (isdigit(ch)) {
+			std::cout << (ch - '0') << " ";
 			st.push(ch - '0');
 		}
 		else {
+			std::cout << "\n operand_2: " << st.top() ;
 			int operand_2 = st.top();
 			st.pop();
+			std::cout << "\n operand_1: " << st.top();
 			int operand_1 = st.top();
 			st.pop();
 			if (ch == '+')
@@ -101,6 +129,7 @@ int postFix(const std::string& exp) {
 				st.push(operand_1 * operand_2);
 			else
 				st.push(operand_1 / operand_2);
+			std::cout << std::endl;
 		}
 	}
 
@@ -140,12 +169,19 @@ int main()
 
 	//MyStackLL<char> msl; 
 
-	for (auto str : { "[](){}", "[((()))]{}", "[", "[(])", "[[]]]" })
-		std::cout << parenthesesChecker(str) << std::endl; 
+	//for (auto str : { "[](){}", "[((()))]{}", "[", "[(])", "[[]]]" })
+	//	std::cout << parenthesesChecker(str) << std::endl; 
+
+	//for (auto str : { "[](){}", "[((()))]{}", "[", "[(])", "[[]]]" })
+	//	std::cout << isBalanced(str) << std::endl;
 
 	// app 3: 
-	std::cout << postFix("34+5*") << std::endl;
-	std::cout << postFix("345++") << std::endl;
+	std::cout << postFix("34+5*") << std::endl;		// 35
+	std::cout << postFix("345++") << std::endl;		// 12
+	std::cout << postFix("34*5+") << std::endl;		// 17
+	std::cout << postFix("345*+") << std::endl;		// 23
+	std::cout << postFix("34-5+") << std::endl;		// 4
+	std::cout << postFix("345-+") << std::endl;		// 2
 
 
 	return 0;
