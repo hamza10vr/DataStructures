@@ -210,7 +210,6 @@ void quiz2(NodePtr& head1, NodePtr& target, NodePtr& head2)
 
 		NodePtr cur = head2;
 		tail->next = head2;
-		//delete head2;
 		head2 = nullptr;
 
 		
@@ -254,7 +253,14 @@ int main()
 	traverse(head2);
 
 	NodePtr taill = findTail(head1);
-	quiz2(head1, head2, head2);
+	NodePtr test_case = head1; // 10 , 20, 30, 40 //  10
+	int test_index = 2;	
+
+	while (test_case && test_index>0) {	// 10 && 1 > 0 
+		test_case = test_case->next;		//20
+		test_index--;					// 0
+	}
+	quiz2(head1, test_case, head2);
 
 	traverse(head1);
 
