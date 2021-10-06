@@ -38,6 +38,7 @@ void traverse(const NodePtr& node)
 		temp = temp->next;
 
 	}
+	std::cout << std::endl;
 }
 
 //
@@ -58,41 +59,23 @@ void add_at_head(NodePtr& head, int num)
 	head->next = oldHead;
 }
 
-
-
-
-void addHead(NodePtr& head, int num)
-{
-	NodePtr newNode = new Node(num);
-
-	NodePtr oldhead = head;
-	head = newNode;
-
-	head->next = oldhead;
-}
-
-//search a number in the linked list
-// O (n)
-
-
-
 //a search function that searches a given target. Return a node address if found, and return nullptr otherwise
 NodePtr search(const NodePtr& head, NodePtr& target)
 {
-	std::cout << "\nSearching for number: " << target << "......... ";
+	
 	NodePtr temp = head;		 // step 1: create a new node
 	while (temp != nullptr)		// step 2: search for target as long as pointer is not nullptr
 	{
 		if (temp == target) // 10, 20, 30, 40  // 0001, 29, 12,02  //29
 		{
-			std::cout << "number " << target << " found !!! & node address: " << temp << "\n";
+			
 			return temp;
 		}
 		temp = temp->next;
 	}
 
 	temp = nullptr; // if target not found, returns null pointer
-	std::cout << "Sorry, number not found & nodes address: " << temp << "\n";
+
 
 	return temp;
 }
@@ -115,14 +98,15 @@ NodePtr findTail(NodePtr& head) {
 
 void quiz2(NodePtr& head1, NodePtr& target, NodePtr& head2)
 {
-	std::cout << "entering quiz 2 fucntion\n";
+	
 
 
 	auto found_target =  search(head1, target);
 	
 	if (!found_target) 
 	{
-		std::cout << "target not found. ";
+		std::cout << "target not found : ";
+		
 		NodePtr tail = findTail(head1);
 
 		if (!tail)	// if list 1 is empty 
@@ -140,8 +124,9 @@ void quiz2(NodePtr& head1, NodePtr& target, NodePtr& head2)
 	}
 	else 
 	{
-		std::cout << "\n entering else block\n";
+		std::cout << "\n Target Found : ";
 		NodePtr cur_remove = target->next;
+		
 		while (cur_remove != nullptr)
 		{
 			NodePtr succ = cur_remove->next;
@@ -171,63 +156,30 @@ void delList(NodePtr& head) {
 }
 void createTestData(NodePtr& head1, NodePtr& head2) {
 
-	for (auto i : { 50, 40,30,20,10 })
+	for (auto i : {  40,30,20,10 })
 		add_at_head(head1, i);
-	//findTail(head1)->next = nullptr;
 	for (auto i : { 13,12,11 })
 		add_at_head(head2, i);
-	//findTail(head2)->next = nullptr;
 
 
 }
-
-void testNotFound() {
-	std::cout << "Testing Not found: " << std::endl;
-	NodePtr head1{ nullptr };
-	NodePtr head2{ nullptr };
-	createTestData(head1, head2);
-
-	quiz2(head1, head2, head2);	// test case when when address not found // this is case because h2 is not part of h1 
-	traverse(head1);
-	delList(head1);
-
-}
-
-void testSomeIndex( int test_index) {
-
-	std::cout << "Testing using index: " << test_index << std::endl;
-	NodePtr head1{ nullptr };
-	NodePtr head2{ nullptr };
-	createTestData(head1, head2);
-	NodePtr test_case = head1;
-
-	while (test_case && test_index > 0) {
-		test_case = test_case->next;
-		test_index--;
-	}
-
-	quiz2(head1, test_case, head2);	// test case when when address not found // this is case because h2 is not part of h1 
-
-
-	traverse(head1);
-	delList(head1);
-}
-
 int main()
 {
 
-	using std::cout;
-	using std::endl;
-
 	NodePtr head1{ nullptr };
 	NodePtr head2{ nullptr };
 
+	createTestData(head1, head2);
+	quiz2(head1, head1->next, head2);
+	traverse(head1);
+	delList(head1);
 
-	testNotFound(); // 
-	for (int i = 0; i < 5; i++) {
-		testSomeIndex(i);
-	}
-	
+
+	createTestData(head1, head2);
+	quiz2(head1, head2, head2);
+	traverse(head1);
+	delList(head1);
+
 
 	return 0;
 
