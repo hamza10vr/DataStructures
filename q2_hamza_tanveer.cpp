@@ -3,14 +3,9 @@
 // Oct 5, 2021
 
 
-// Linked list
-
-
+//Singly linked list
 
 #include <iostream>
-
-
-
 
 struct Node
 {
@@ -62,11 +57,12 @@ void add_at_head(NodePtr& head, int num)
 //a search function that searches a given target. Return a node address if found, and return nullptr otherwise
 NodePtr search(const NodePtr& head, NodePtr& target)
 {
-	
-	NodePtr temp = head;		 // step 1: create a new node
-	while (temp != nullptr)		// step 2: search for target as long as pointer is not nullptr
+	// step 1: create a new node
+	// step 2: search for target as long as pointer is not nullptr
+	NodePtr temp = head;		 
+	while (temp != nullptr)		
 	{
-		if (temp == target) // 10, 20, 30, 40  // 0001, 29, 12,02  //29
+		if (temp == target) 
 		{
 			
 			return temp;
@@ -74,7 +70,8 @@ NodePtr search(const NodePtr& head, NodePtr& target)
 		temp = temp->next;
 	}
 
-	temp = nullptr; // if target not found, returns null pointer
+	// if target not found, returns null pointer
+	temp = nullptr; 
 
 
 	return temp;
@@ -105,7 +102,7 @@ void quiz2(NodePtr& head1, NodePtr& target, NodePtr& head2)
 	
 	if (!found_target) 
 	{
-		std::cout << "target not found : ";
+		std::cout << "Target not found : ";
 		
 		NodePtr tail = findTail(head1);
 
@@ -124,7 +121,7 @@ void quiz2(NodePtr& head1, NodePtr& target, NodePtr& head2)
 	}
 	else 
 	{
-		std::cout << "\n Target Found : ";
+		std::cout << "\nTarget Found : ";
 		NodePtr cur_remove = target->next;
 		
 		while (cur_remove != nullptr)
