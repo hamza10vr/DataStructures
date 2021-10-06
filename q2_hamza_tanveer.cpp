@@ -113,13 +113,13 @@ bool llsearch(const NodePtr head, int target)
 }
 
 //a search function that searches a given target. Return a node address if found, and return nullptr otherwise
-NodePtr search(const NodePtr& head, int target)
+NodePtr search(const NodePtr& head, NodePtr& target)
 {
 	std::cout << "\nSearching for number: " << target << "......... ";
 	NodePtr temp = head;		 // step 1: create a new node
 	while (temp != nullptr)		// step 2: search for target as long as pointer is not nullptr
 	{
-		if (temp->num == target)
+		if (temp == target) // 10, 20, 30, 40  // 0001, 29, 12,02  //29
 		{
 			std::cout << "number " << target << " found !!! & node address: " << temp << "\n";
 			return temp;
@@ -133,7 +133,16 @@ NodePtr search(const NodePtr& head, int target)
 	return temp;
 }
 
-
+NodePtr findTail(NodePtr& head) {
+	NodePtr cur = head;
+	while (cur) 
+	{
+		if (!(cur->next))
+			break;
+		cur = cur -> next;
+	}
+	return cur;
+}
 
 
 
@@ -183,45 +192,42 @@ void del(NodePtr& head, int target)
 void quiz2(NodePtr& head1, NodePtr& target, NodePtr& head2)
 {
 	std::cout << "entering quiz 2 fucntion\n";
-	//NodePtr curNode = target->next;
-	//NodePtr sucNode = curNode->next;
+
+
+	auto found_target =  search(head1, target);
 	
-	if (!target) 
+	if (!found_target) 
 	{
 		std::cout << "target not found. ";
-		while (head2 != nullptr)
+		NodePtr tail = findTail(head1);
+
+		if (!tail) 
 		{
-			std::cout << head2->num << " ";
-			add_at_tail(head1, head2->num);
-			head2 = head2->next;
+			head1 = head2;
+			head2 = nullptr;
+			return;
 		}
 
-		std::cout << head2 << std::endl;
-		delete head2;
-		std::cout << head2 << std::endl;
-		head2 = NULL;
+		NodePtr cur = head2;
+		tail->next = head2;
+		//delete head2;
+		head2 = nullptr;
+
+		
 	}
 	else 
 	{
 		std::cout << "\n entering else block\n";
-		while (target->next != nullptr)
+		NodePtr cur_remove = target->next;
+		while (cur_remove != nullptr)
 		{
-			NodePtr removing_node = target->next;
-			target->next = removing_node->next;
-			delete removing_node;
-			removing_node = NULL;			
+			NodePtr succ = cur_remove->next;
+			delete cur_remove;
+			cur_remove = succ;
+		
 		}
-		while (head2 != nullptr)
-		{
-			std::cout << head2->num << " ";
-			add_at_tail(head1, head2->num);
-			head2 = head2->next;
-		}
-
-		std::cout << head2 << std::endl;
-		delete head2;
-		std::cout << head2 << std::endl;
-		head2 = NULL;
+		target->next = head2;
+		head2 = nullptr;
 	}
 
 
@@ -247,10 +253,16 @@ int main()
 	traverse(head1);
 	traverse(head2);
 
+	NodePtr taill = findTail(head1);
+	quiz2(head1, head2, head2);
+
+	traverse(head1);
+
+
 	
 	
-	auto target_not_found = search(head1, 50);
-	quiz2(head1, target_not_found, head2);
+	//auto target_not_found = search(head1, 50);
+	//quiz2(head1, target_not_found, head2);
 
 	std::cout << "\nprinting head1 : ";
 	traverse(head1);
@@ -275,8 +287,9 @@ int main()
 	traverse(head4);
 
 
-	auto target_address = search(head3, 20);
-	quiz2(head3, target_address, head4);
+
+	//auto target_address = search(head3, 20);
+	//quiz2(head3, target_address, head4);
 
 	std::cout << "\nprinting head3 : ";
 	traverse(head3);
