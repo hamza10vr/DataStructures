@@ -1,4 +1,8 @@
-// #include<bits/stdc++.h>
+// Hamza Tanveer
+// HW 5
+// infix to postfix converter
+// 10/26/2021
+
 #include<stack>
 #include<string>
 #include<iostream>
@@ -20,39 +24,44 @@ int precdence(char c)        // function for setting up / returning the preceden
 std::string I2PConvertor(std::string s)         // function to convert infix to posfix
 {
     std::string result;
-    std::stack<char> ms; 
+    std::stack<char> ms;
+    char character;
     
 
     for (int i = 0; i < s.length(); i++) 
     {
-        char c = s[i];
-        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
-            result += c;
-        else if (c == '(')
+        character = s[i];   // storing the input in Character
+        if ((character >= 'a' && character <= 'z') || (character >= 'A' && character <= 'Z') || (character >= '0' && character <= '9'))
+        {   // if the character is an operand, then add it to the character
+            result += character;
+        }
+        else if (character == '(')
+        {   // if it is an open pranthese, push it to the stack
             ms.push('(');
-        else if (c == ')') 
+        }
+        else if (character == ')')      // if closed pranthesis then while top is not open paranthesis
         {
             while (ms.top() != '(')
             {
-                result += ms.top();
-                ms.pop();
+                result += ms.top();     // ... concat the result  to what is at the top of stack
+                ms.pop();               // .. then remvoe the from the top of the stack
             }
             ms.pop();
         }
         else 
-        {
+        {   // while ms (my stack) is not empty and the precendence order is less than what is at the top of stack
             while (!ms.empty() && precdence(s[i]) <= precdence(ms.top()))
             {
-                result += ms.top();
-                ms.pop();
+                result += ms.top();     // contcatenate the result with what is at the top of stack when precedence level is < top
+                ms.pop();               // after concatenation remove from the the stack
             }
-            ms.push(c);
+            ms.push(character);         // else just push it to the stack
         }
     }
-    while (!ms.empty())
+    while (!ms.empty())         // continue to concatenate the remaining to the string 
     {
         result += ms.top();
-        ms.pop();
+        ms.pop();               // removing rom the top of stack after the concatnation of string is done.
     }
 
     return result;
@@ -78,9 +87,6 @@ int main() {
     // expected: ab+cd-*
     std::cout << I2PConvertor(infix4) << std::endl;
 
-    //cout << "Postfix of " << infix1 << ": " << I2PConvertor(infix1) << endl;
-    //cout << "Postfix of " << infix2 << ": " << I2PConvertor(infix2) << endl;
-    //cout << "Postfix of " << infix3 << ": " << I2PConvertor(infix3) << endl;
-    //cout << "Postfix of " << infix4 << ": " << I2PConvertor(infix4) << endl;
+
     return 0;
 }
